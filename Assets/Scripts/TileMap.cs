@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class TileMap : MonoBehaviour
 {
+    
+    static int xCells = 10;
+    static int yCells = 10;
     Tile[,] tileMap;
-
     // Start is called before the first frame update
     void Start()
     {
-        int xCells = 10;
-        int yCells = 10;
         tileMap = new Tile[xCells, yCells];
+
     }
 
     // Update is called once per frame
@@ -19,10 +20,20 @@ public class TileMap : MonoBehaviour
     {
         
     }
-
-    // Populate new tile
-    public void addTile(int x, int y, Tile tile)
+    public Tile getStartingTile()
     {
-        tileMap[x, y] = tile;
+        return getTile(xCells / 2, yCells / 2);
+    }
+    public Tile getTile(int x, int z)
+    {
+
+        Tile returnTile = tileMap[x,z];
+
+        return returnTile;
+    }
+    // Populate new tile
+    public void addTile(int x, int z, Tile tile)
+    {
+        tileMap[x, z] = tile;
     }
 }

@@ -10,7 +10,7 @@ public class ExplorationMain : MonoBehaviour
 
     void Start()
     {
-        gameTiles = new TileMap();
+        gameTiles = GetComponent<TileMap>();
     }
 
     // Update is called once per frame
@@ -18,8 +18,10 @@ public class ExplorationMain : MonoBehaviour
     {
             
         if(Time.time - lastSpawnedTime >= 1) {
+            print(Time.frameCount);
             spawnTile(0,(int)Time.time);
             lastSpawnedTime = Time.time;
+            print(gameTiles.getStartingTile());
         }
     }
 
@@ -27,6 +29,6 @@ public class ExplorationMain : MonoBehaviour
     {
         Tile newtile = Instantiate<Tile>(tilePrefabs[Random.Range(0,tilePrefabs.Count)]);
         newtile.transform.position = new Vector3(x, 0, z);
-        //gameTiles.addTile(x, z, newtile);
+        gameTiles.addTile(x, z, newtile);
     }
 }
