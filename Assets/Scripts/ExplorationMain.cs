@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Util;
 
 public class ExplorationMain : MonoBehaviour
 {
     float lastSpawnedTime = 0;
     TileMap gameTiles;
-    public Transform agentPos;
+    public Player agent;
     Vector2 oldPos = Vector2.zero;
     public int scanSize = 1;
     public bool exploring = true;
@@ -14,13 +15,18 @@ public class ExplorationMain : MonoBehaviour
     void Start()
     {
         gameTiles = GetComponent<TileMap>();
+        oldPos = transform.position.xz();
     }
     
     void Update()
     {
-        if(exploring) {
+        Vector2 posDiff = (agent.transform.position - transform.position).xz();
+        if(posDiff != Vector2.Min(posDiff,gameTiles.size) || posDiff != Vector2.Max(posDiff, Vector2.zero)) {
+            exploring = false;
+        } else {
+            exploring = true;
             var curPos = getCurrentPos();
-            if (!curPos.Equals(oldPos)) {
+            if (curPos != oldPos) {
                 explore(curPos);
                 oldPos = curPos;
             }
@@ -28,18 +34,17 @@ public class ExplorationMain : MonoBehaviour
     }
 
     Tile getCurrentTile() {
-        return gameTiles.getTile(Mathf.RoundToInt(agentPos.localPosition.x), Mathf.RoundToInt(agentPos.localPosition.z));
+        return gameTiles.exploreTile(Mathf.RoundToInt(agent.transform.localPosition.x), Mathf.RoundToInt(agent.transform.localPosition.z));
     }
     Vector2 getCurrentPos() {
-
-        return new Vector2(agentPos.localPosition.x, (int)agentPos.localPosition.z);
+        return (agent.transform.position-transform.position).xz();
     }
     void explore(Vector2 pos) {
         //print("exploring");
         for(int i=-scanSize; i<=scanSize; i++) {
             for (int j = -scanSize; j <= scanSize; j++) {
                 //print("scanning " + i + " " + j);
-                gameTiles.getTile(i+(int)pos.x, j+(int)pos.y);
+                gameTiles.exploreTile(i+(int)pos.x, j+(int)pos.y);
             }
         }
     }
