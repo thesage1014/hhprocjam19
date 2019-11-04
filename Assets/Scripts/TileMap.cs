@@ -26,7 +26,7 @@ public class TileMap : MonoBehaviour {
     {
         if (x >= xCells || x < 0 || y >= yCells || y < 0)
         {
-            Debug.LogError("Tile seach out of bounds:" + x + " " + y);
+            Debug.Log("Tile seach out of bounds:" + x + " " + y);
             return null;
         }
         else
@@ -42,7 +42,7 @@ public class TileMap : MonoBehaviour {
     // Populate new tile
     Tile addTile(int x, int y)
     {
-        print(x + " " + y);
+        //print(x + " " + y);
         Tile newTile = Instantiate<Tile>(tilePrefabs[Random.Range(0, tilePrefabs.Count)]);
         newTile.transform.position = new Vector3(x, 0, y);
         tileMap[x, y] = newTile;

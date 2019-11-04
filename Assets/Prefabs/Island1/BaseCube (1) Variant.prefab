@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 6750401626016079726, guid: 4982ddb0f4411e14881b84a34672fc6d,
         type: 3}
       propertyPath: m_Name
-      value: BaseCube (1)
+      value: BaseCube (1) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6516697309080965215, guid: 4982ddb0f4411e14881b84a34672fc6d,
         type: 3}

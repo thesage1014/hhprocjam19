@@ -35,10 +35,10 @@ public class ExplorationMain : MonoBehaviour
         return new Vector2(agentPos.localPosition.x, (int)agentPos.localPosition.z);
     }
     void explore(Vector2 pos) {
-        print("exploring");
+        //print("exploring");
         for(int i=-scanSize; i<=scanSize; i++) {
             for (int j = -scanSize; j <= scanSize; j++) {
-                print("scanning " + i + " " + j);
+                //print("scanning " + i + " " + j);
                 gameTiles.getTile(i+(int)pos.x, j+(int)pos.y);
             }
         }
