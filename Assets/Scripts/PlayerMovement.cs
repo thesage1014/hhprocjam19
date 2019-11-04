@@ -19,10 +19,7 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(0f, 0f, moveSpeed * Input.GetAxis("Vertical") * Time.deltaTime);
 
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
-                transform.Rotate(-Vector3.up * RotateSpeed * Time.deltaTime);
-            else if (Input.GetKey(KeyCode.RightArrow))
-                transform.Rotate(Vector3.up * RotateSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.up * Input.GetAxis("Horizontal") * RotateSpeed * Time.deltaTime);
         }
     }
 

@@ -25,7 +25,7 @@ public class TileMap : MonoBehaviour {
     }
     public Tile getTile(int x, int z)
     {
-        if (x <= xCells || x < 0 || z >= yCells || z < 0)
+        if (x >= xCells || x < 0 || z >= yCells || z < 0)
         {
             Debug.LogError("Tile seach out of bounds:" + x + " " + z);
             return null;
@@ -33,14 +33,17 @@ public class TileMap : MonoBehaviour {
         else
         {
             Tile returnTile = tileMap[x, z];
+            if(returnTile is null) {
+                addTile(x, z);
+            }
             return returnTile;
         }
     }
     // Populate new tile
-    void addTile(int x, int z, Tile tile)
+    Tile addTile(int x, int z)
     {
-        Tile newtile = Instantiate<Tile>(tilePrefabs[Random.Range(0, tilePrefabs.Count)]);
-        newtile.transform.position = new Vector3(x, 0, z);
-        tileMap[x, z] = tile;
+        Tile newTile = Instantiate<Tile>(tilePrefabs[Random.Range(0, tilePrefabs.Count)]);
+        newTile.transform.position = new Vector3(x, 0, z);
+        return tileMap[x, z] = newTile;
     }
 }
