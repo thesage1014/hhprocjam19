@@ -11,7 +11,6 @@ public class TileMap : MonoBehaviour {
     void Start()
     {
         tileMap = new Tile[xCells, yCells];
-
     }
 
     // Update is called once per frame
@@ -23,27 +22,30 @@ public class TileMap : MonoBehaviour {
     {
         return getTile(xCells / 2, yCells / 2);
     }
-    public Tile getTile(int x, int z)
+    public Tile getTile(int x, int y)
     {
-        if (x >= xCells || x < 0 || z >= yCells || z < 0)
+        if (x >= xCells || x < 0 || y >= yCells || y < 0)
         {
-            Debug.LogError("Tile seach out of bounds:" + x + " " + z);
+            Debug.LogError("Tile seach out of bounds:" + x + " " + y);
             return null;
         }
         else
         {
-            Tile returnTile = tileMap[x, z];
+            Tile returnTile = tileMap[x, y];
             if(returnTile is null) {
-                addTile(x, z);
+                addTile(x, y);
             }
             return returnTile;
         }
     }
+
     // Populate new tile
-    Tile addTile(int x, int z)
+    Tile addTile(int x, int y)
     {
+        print(x + " " + y);
         Tile newTile = Instantiate<Tile>(tilePrefabs[Random.Range(0, tilePrefabs.Count)]);
-        newTile.transform.position = new Vector3(x, 0, z);
-        return tileMap[x, z] = newTile;
+        newTile.transform.position = new Vector3(x, 0, y);
+        tileMap[x, y] = newTile;
+        return newTile;
     }
 }

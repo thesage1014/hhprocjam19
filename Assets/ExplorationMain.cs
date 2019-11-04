@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ExplorationMain : MonoBehaviour
 {
-    
     float lastSpawnedTime = 0;
     TileMap gameTiles; 
 
@@ -16,7 +15,6 @@ public class ExplorationMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            
         if(Time.time - lastSpawnedTime >= 1) {
             gameTiles.getTile(0,(int)Time.time);
             lastSpawnedTime = Time.time;
