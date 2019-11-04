@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TileMap : MonoBehaviour {
     public List<Tile> tilePrefabs;
-    static int xCells = 10;
-    static int yCells = 10;
+    static int xCells = 40;
+    static int yCells = 40;
     Tile[,] tileMap;
     // Start is called before the first frame update
     void Start()
