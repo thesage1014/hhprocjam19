@@ -21,7 +21,7 @@ public class TileMap : MonoBehaviour
     }
 
     // Populate new tile
-    void addTile(int x, int y, Tile tile)
+    public void addTile(int x, int y, Tile tile)
     {
         tileMap[x, y] = tile;
     }

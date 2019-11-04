@@ -6,11 +6,11 @@ public class ExplorationMain : MonoBehaviour
 {
     public List<Tile> tilePrefabs;
     float lastSpawnedTime = 0;
-    var gameTiles; 
+    TileMap gameTiles; 
 
     void Start()
     {
-        gameTiles = new Filemap();
+        gameTiles = new TileMap();
     }
 
     // Update is called once per frame
@@ -23,10 +23,10 @@ public class ExplorationMain : MonoBehaviour
         }
     }
 
-    private void spawnTile(float x, float z)
+    private void spawnTile(int x, int z)
     {
         Tile newtile = Instantiate<Tile>(tilePrefabs[Random.Range(0,tilePrefabs.Count)]);
-        gameTiles.addTile(x, 0, newTile);
         newtile.transform.position = new Vector3(x, 0, z);
+        //gameTiles.addTile(x, z, newtile);
     }
 }
