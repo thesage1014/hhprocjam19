@@ -35,8 +35,8 @@ public class ExplorationMain : MonoBehaviour
         }
     }
 
-    Tile getCurrentTile() {
-        return gameTiles.GetTile(agent.transform.localPosition.x,agent.transform.localPosition.z);
+    public Tile getCurrentTile() {
+        return gameTiles.GetTile(getCurrentPos());
     }
     Vector2 getCurrentPos() {
         return (agent.transform.position-transform.position).xz();
@@ -46,7 +46,7 @@ public class ExplorationMain : MonoBehaviour
         for(int i=-scanSize; i<=scanSize; i++) {
             for (int j = -scanSize; j <= scanSize; j++) {
                 //print("scanning " + i + " " + j);
-                gameTiles.explore(i+pos.x, j+pos.y, pos);
+                gameTiles.explore(i+pos.x, j+pos.y, agent);
             }
         }
     }

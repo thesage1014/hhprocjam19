@@ -16,4 +16,7 @@ public class Player : MonoBehaviour
     {
         
     }
+    //public Tile GetTile() {
+    //    return explorer.get
+    //}
 }
