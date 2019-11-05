@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Util;
 
 public class TileMap : MonoBehaviour {
     public List<Tile> tilePrefabs;
@@ -19,22 +20,19 @@ public class TileMap : MonoBehaviour {
     Tile[,] tileMap;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         tileMap = new Tile[xCells, yCells];
         Transform helper = transform.Find("MapHelper");
-        helper.transform.localScale = new Vector3(xCells, 1, yCells);
-        helper.transform.position = transform.position + new Vector3(xCells/2,-.5f,yCells/2);
+        helper.transform.localScale = new Vector3(xCells, .1f, yCells);
+        helper.transform.position = transform.position + new Vector3(xCells / 2, -.05f, yCells / 2);
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
 
     }
-    public Tile getStartingTile()
-    {
-        return exploreTile(xCells / 2, yCells / 2);
+    public Tile getStartingTile() {
+        return explore(xCells / 2, yCells / 2);
     }
     public Tile GetTile(int x, int y) {
         if (x >= xCells || x < 0 || y >= yCells || y < 0) {
@@ -46,29 +44,45 @@ public class TileMap : MonoBehaviour {
             return returnTile;
         }
     }
-    public Tile exploreTile(int x, int y)
-    {
-        if (x >= xCells || x < 0 || y >= yCells || y < 0)
-        {
-            //Debug.Log("Tile seach out of bounds:" + x + " " + y);
+    public Tile GetTile(float x, float y) {
+        return GetTile((int)x, (int)y);
+    }
+    public Tile exploreTileDBG(int x, int y) {
+        if (x >= xCells || x < 0 || y >= yCells || y < 0) {
+            Debug.Log("Tile seach out of bounds:" + x + " " + y);
             return null;
-        }
-        else
-        {
+        } else {
             Tile returnTile = tileMap[x, y];
-            if(returnTile is null) {
+            if (returnTile is null) {
                 addTile(x, y);
             }
             return returnTile;
         }
     }
-
+    public Tile explore(float inx, float iny, Vector2 agent) {
+        int x = Mathf.RoundToInt(inx);
+        int y = Mathf.RoundToInt(iny);
+        if (x >= xCells || x < 0 || y >= yCells || y < 0) {
+            Debug.Log("Tile seach out of bounds:" + x + " " + y);
+            return null;
+        } else {
+            Tile returnTile = tileMap[x, y];
+            if (returnTile is null) {
+                addTile(x, y);
+            } else {
+                returnTile.explore(returnTile.transform.localPosition.xz() - agent);
+            }
+            return returnTile;
+        }
+    }
+    public Tile explore(float inx, float iny) {
+        return explore(inx, iny, new Vector2(inx, iny));
+    }
     // Populate new tile
-    Tile addTile(int x, int y)
-    {
+    Tile addTile(int x, int y) {
         //print(x + " " + y);
         Tile newTile = Instantiate<Tile>(tilePrefabs[Random.Range(0, tilePrefabs.Count)], transform);
-        newTile.transform.position = new Vector3(x+.5f, 0, y+.5f) + transform.position;
+        newTile.transform.position = new Vector3(x + .5f, 0, y + .5f) + transform.position;
         tileMap[x, y] = newTile;
         return newTile;
     }

@@ -21,10 +21,12 @@ public class ExplorationMain : MonoBehaviour
     void Update()
     {
         Vector2 posDiff = (agent.transform.position - transform.position).xz();
-        if(posDiff != Vector2.Min(posDiff,gameTiles.size) || posDiff != Vector2.Max(posDiff, Vector2.zero)) {
+        
+        if(posDiff != Vector2.Min(posDiff,gameTiles.size-Vector2.one*scanSize) || posDiff != Vector2.Max(posDiff, Vector2.one * scanSize)) {
             exploring = false;
         } else {
             exploring = true;
+            agent.explorer = this; //hacky
             var curPos = getCurrentPos();
             if (curPos != oldPos) {
                 explore(curPos);
@@ -34,7 +36,7 @@ public class ExplorationMain : MonoBehaviour
     }
 
     Tile getCurrentTile() {
-        return gameTiles.exploreTile(Mathf.RoundToInt(agent.transform.localPosition.x), Mathf.RoundToInt(agent.transform.localPosition.z));
+        return gameTiles.GetTile(agent.transform.localPosition.x,agent.transform.localPosition.z);
     }
     Vector2 getCurrentPos() {
         return (agent.transform.position-transform.position).xz();
@@ -44,7 +46,7 @@ public class ExplorationMain : MonoBehaviour
         for(int i=-scanSize; i<=scanSize; i++) {
             for (int j = -scanSize; j <= scanSize; j++) {
                 //print("scanning " + i + " " + j);
-                gameTiles.exploreTile(i+(int)pos.x, j+(int)pos.y);
+                gameTiles.explore(i+pos.x, j+pos.y, pos);
             }
         }
     }
