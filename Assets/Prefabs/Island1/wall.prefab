@@ -102,7 +102,22 @@ PrefabInstance:
     - target: {fileID: 6750401626016079726, guid: 4982ddb0f4411e14881b84a34672fc6d,
         type: 3}
       propertyPath: m_Name
-      value: BaseCube (1) Variant
+      value: wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241512991031520554, guid: 4982ddb0f4411e14881b84a34672fc6d,
+        type: 3}
+      propertyPath: tileType
+      value: wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241512991031520554, guid: 4982ddb0f4411e14881b84a34672fc6d,
+        type: 3}
+      propertyPath: rotRandomness
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241512991031520554, guid: 4982ddb0f4411e14881b84a34672fc6d,
+        type: 3}
+      propertyPath: posRandomness
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6516697309080965215, guid: 4982ddb0f4411e14881b84a34672fc6d,
         type: 3}
@@ -154,7 +169,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 3.25
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7627498951559361958, guid: 4982ddb0f4411e14881b84a34672fc6d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4982ddb0f4411e14881b84a34672fc6d, type: 3}
 --- !u!4 &8019043592404676441 stripped
 Transform:

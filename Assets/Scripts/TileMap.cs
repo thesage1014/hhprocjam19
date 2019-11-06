@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Util;
 
+
 public class TileMap : MonoBehaviour {
     [SerializeField] List<Tile> inputTilePrefabs;
     Dictionary<string, Tile> tilePrefabs;
@@ -85,19 +86,25 @@ public class TileMap : MonoBehaviour {
             if ((int)Random.Range(0, 10) == 0) {
                 newTile = Instantiate<Tile>(tilePrefabs["wall"], transform);
             } else {
-                newTile = Instantiate<Tile>(tilePrefabs["BaseCube"], transform);
+                newTile = Instantiate<Tile>(tilePrefabs["ground"], transform);
             }
         } else {
             int scanSize = 1;
-            Tile tileToSpawn = tilePrefabs[agent.explorer.getCurrentTile().tileType];
-            for (int i = -scanSize; i <= scanSize; i++) {
-                for (int j = -scanSize; j <= scanSize; j++) {
-                    //print("scanning " + i + " " + j);
-                    Tile scannedTile = GetTile(i + x,  y); // j +
-                    //print(i + " " + j);
-                    if (!(scannedTile is null) && scannedTile.tileType == "wall") {
-                        tileToSpawn = tilePrefabs["wall"];
-                        break;
+            Tile agentTile = agent.explorer.getCurrentTile();
+            Tile tileToSpawn = null;
+            if (agentTile is null) {
+                tileToSpawn = tilePrefabs["BaseCube"];
+            } else {
+                tileToSpawn = tilePrefabs[agentTile.tileType];
+                for (int i = -scanSize; i <= scanSize; i++) {
+                    for (int j = -scanSize; j <= scanSize; j++) {
+                        //print("scanning " + i + " " + j);
+                        Tile scannedTile = GetTile(i + x,  y); // j +
+                        //print(i + " " + j);
+                        if (!(scannedTile is null) && scannedTile.tileType == "wall") {
+                            tileToSpawn = tilePrefabs["wall"];
+                            break;
+                        }
                     }
                 }
             }
