@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
     public float RotateSpeed = 30f;
+    public float WarpCooldown = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,11 @@ public class PlayerMovement : MonoBehaviour
 
         {
             transform.Rotate(Vector3.up * Input.GetAxis("Horizontal") * RotateSpeed * Time.deltaTime);
+        }
+
+        if (WarpCooldown > 0)
+        { 
+            WarpCooldown = WarpCooldown - Time.deltaTime; 
         }
     }
 

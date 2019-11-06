@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WarpScript1 : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+public class WarpScript1 : MonoBehaviour{
+    public Transform warpTarget;
+    public GameObject thePlayer;
 
-    // Update is called once per frame
-    void Update()
+        void OnTriggerEnter(Collider other)
     {
-        
+       if(other.gameObject==thePlayer)
+        thePlayer.transform.position = warpTarget.transform.position;
     }
 }
