@@ -8,7 +8,8 @@ public class Tile : MonoBehaviour {
     // Start is called before the first frame update
     bool scaling = true;
     float scaleSpeed = .0001f;
-    void Start() {
+    public string tileType;
+    void Awake() {
         objects = new List<Transform>(GetComponentsInChildren<Transform>());
         originalScales = new List<Vector3>();
         for (int i = 0; i < objects.Count; i++) {
@@ -29,12 +30,12 @@ public class Tile : MonoBehaviour {
             }
         }
     }
-    public void explore(Vector2 agentOffset) {
+    public void beExplored(Vector2 agentOffset) {
         scaling = true;
         //print(agentOffset);
         float mag = agentOffset.magnitude * agentOffset.magnitude - .3f;
         if (mag != 0) {
-            scaleSpeed = 1.5f / (mag);
+            scaleSpeed = 1.5f / (mag); //1.5f
         }
     }
 }

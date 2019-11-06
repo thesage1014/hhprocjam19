@@ -29,7 +29,7 @@ public class ExplorationMain : MonoBehaviour
             agent.explorer = this; //hacky
             var curPos = getCurrentPos();
             if (curPos != oldPos) {
-                explore(curPos);
+                scanPos(curPos);
                 oldPos = curPos;
             }
         }
@@ -41,12 +41,17 @@ public class ExplorationMain : MonoBehaviour
     Vector2 getCurrentPos() {
         return (agent.transform.position-transform.position).xz();
     }
-    void explore(Vector2 pos) {
+    void scanPos(Vector2 pos) {
+        pos -= Vector2.one * .5f;
         //print("exploring");
+        Vector2 ij;
         for(int i=-scanSize; i<=scanSize; i++) {
             for (int j = -scanSize; j <= scanSize; j++) {
                 //print("scanning " + i + " " + j);
-                gameTiles.explore(i+pos.x, j+pos.y, agent);
+                ij = new Vector2(i, j);
+                if(ij.magnitude - .1f < scanSize) {
+                    gameTiles.explore(i+pos.x, j+pos.y, agent);
+                }
             }
         }
     }

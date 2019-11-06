@@ -4,10 +4,12 @@ using UnityEngine;
 using Util;
 
 public class TileMap : MonoBehaviour {
-    public List<Tile> tilePrefabs;
+    [SerializeField] List<Tile> inputTilePrefabs;
+    Dictionary<string, Tile> tilePrefabs;
     int xCells = 40;
     int yCells = 40;
     Tile[,] tileMap;
+
     //TODO add enum
     public Vector2 size {
         get {
@@ -19,9 +21,14 @@ public class TileMap : MonoBehaviour {
             return new Vector3(xCells, 0, yCells);
         }
     }
-    
 
-    // Start is called before the first frame update
+    void Awake() {
+        tilePrefabs = new Dictionary<string, Tile>();
+        foreach (Tile t in inputTilePrefabs) {
+            t.tileType = t.name;
+            tilePrefabs.Add(t.name, t);
+        }
+    }
     void Start() {
         tileMap = new Tile[xCells, yCells];
         Transform helper = transform.Find("MapHelper");
@@ -56,36 +63,40 @@ public class TileMap : MonoBehaviour {
         int x = Mathf.RoundToInt(inx);
         int y = Mathf.RoundToInt(iny);
         if (x >= xCells || x < 0 || y >= yCells || y < 0) {
-            Debug.Log("Tile seach out of bounds:" + x + " " + y);
+            Debug.Log("Tile search out of bounds:" + x + " " + y);
             return null;
         } else {
             Tile returnTile = tileMap[x, y];
-            if (returnTile is null) {
+            if (returnTile is null) { // Empty space
                 addTile(x, y, agent);
             } else {
                 if (!(agent is null)) {
-                    returnTile.explore(returnTile.transform.position.xz() - agent.transform.position.xz());
+                    returnTile.beExplored(returnTile.transform.position.xz() - agent.transform.position.xz());
                 }
             }
             return returnTile;
         }
     }
-    // Populate new tile
+    // Populate new tile. Agent can be null
     Tile addTile(int x, int y, Player agent) {
         //print(x + " " + y);
         Tile newTile = null;
         if (agent is null || Time.frameCount < 10) {
-            newTile = Instantiate<Tile>(tilePrefabs[Random.Range(0, tilePrefabs.Count)], transform);
+            if ((int)Random.Range(0, 10) == 0) {
+                newTile = Instantiate<Tile>(tilePrefabs["wall"], transform);
+            } else {
+                newTile = Instantiate<Tile>(tilePrefabs["BaseCube"], transform);
+            }
         } else {
             int scanSize = 1;
-            Tile tileToSpawn = agent.explorer.getCurrentTile();
+            Tile tileToSpawn = tilePrefabs[agent.explorer.getCurrentTile().tileType];
             for (int i = -scanSize; i <= scanSize; i++) {
                 for (int j = -scanSize; j <= scanSize; j++) {
                     //print("scanning " + i + " " + j);
-                    Tile scannedTile = GetTile(i + x, j + y);
-                    print(i + " " + j);
-                    if (!(scannedTile is null) && scannedTile.tag == "wall") {
-                        tileToSpawn = scannedTile;
+                    Tile scannedTile = GetTile(i + x,  y); // j +
+                    //print(i + " " + j);
+                    if (!(scannedTile is null) && scannedTile.tileType == "wall") {
+                        tileToSpawn = tilePrefabs["wall"];
                         break;
                     }
                 }
