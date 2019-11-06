@@ -32,8 +32,9 @@ public class Tile : MonoBehaviour {
     public void explore(Vector2 agentOffset) {
         scaling = true;
         //print(agentOffset);
-        if (agentOffset.magnitude != 0) {
-            scaleSpeed = 1.5f / (agentOffset.magnitude * agentOffset.magnitude);
+        float mag = agentOffset.magnitude * agentOffset.magnitude - .3f;
+        if (mag != 0) {
+            scaleSpeed = 1.5f / (mag);
         }
     }
 }
