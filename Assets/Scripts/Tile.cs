@@ -23,6 +23,7 @@ public class Tile : MonoBehaviour {
         if(!(spawnAudio is null) && spawnAudio.Length != 0) {
             var audioSrc = GetComponent<AudioSource>();
             audioSrc.clip = spawnAudio[Random.Range(0,spawnAudio.Length)];
+            audioSrc.pitch += Random.Range(-.2f, .2f);
             audioSrc.PlayDelayed(Random.value*.5f);
             Destroy(audioSrc, audioSrc.clip.length*2f);
         }
