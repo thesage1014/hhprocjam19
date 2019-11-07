@@ -51,7 +51,7 @@ public class TileMap : MonoBehaviour {
                 setTile(t.pos.x, t.pos.y, t.prefab, t.prebuilit);
             }
         }
-        Transform helper = transform.Find("MapHelper");
+        Transform helper = transform.Find("MapOutline(hidden)");
         helper.transform.localScale = new Vector3(xCells, .1f, yCells);
         helper.transform.position = transform.position + new Vector3(xCells / 2, -.05f, yCells / 2);
     }

@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!135 &7736801671017511586
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4160960977794567010}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0.0000076293945}
+--- !u!114 &8650782286531649759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4160960977794567010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99339f77a3f0207499247eb176b22bf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warpTarget: {fileID: 0}
+  thePlayer: {fileID: 0}
 --- !u!1001 &1622474678215526555
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,6 +94,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6161373948995268606, guid: a0f334b79866a3a429238b7962cf6f2c,
+        type: 3}
+      propertyPath: tileType
+      value: island1goal
+      objectReference: {fileID: 0}
     - target: {fileID: 2150061987849117744, guid: a0f334b79866a3a429238b7962cf6f2c,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -89,3 +121,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0f334b79866a3a429238b7962cf6f2c, type: 3}
+--- !u!1 &4160960977794567010 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3403177505344930809, guid: a0f334b79866a3a429238b7962cf6f2c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1622474678215526555}
+  m_PrefabAsset: {fileID: 0}
