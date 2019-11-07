@@ -17,19 +17,20 @@ public class ExplorationMain : MonoBehaviour {
     }
 
     void Update() {
-        Vector2 posDiff = (agent.transform.position - transform.position).xz();
+        Vector2 pos = getCurrentPos();
 
-        if (posDiff != Vector2.Min(posDiff, gameTiles.size - Vector2.one * scanSize) || posDiff != Vector2.Max(posDiff, Vector2.one * scanSize)) {
+        if (pos != Vector2.Min(pos, gameTiles.size - Vector2.one * scanSize) || pos != Vector2.Max(pos, Vector2.one * scanSize)) {
             exploring = false;
         } else {
             exploring = true;
         }
         agent.explorer = this; //hacky
-        var curPos = getCurrentPos();
-        if (curPos != oldPos) {
+        var curPos = pos;
+        if (curPos != oldPos || Time.frameCount < 5) {
             scanPos(curPos);
             oldPos = curPos;
         }
+        //getCurrentTile().GetComponent<MeshRenderer>().enabled = false;
     }
 
     public Tile getCurrentTile() {
