@@ -102,7 +102,12 @@ PrefabInstance:
     - target: {fileID: 6750401626016079726, guid: 4982ddb0f4411e14881b84a34672fc6d,
         type: 3}
       propertyPath: m_Name
-      value: wall (1)
+      value: wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241512991031520554, guid: 4982ddb0f4411e14881b84a34672fc6d,
+        type: 3}
+      propertyPath: spawnAudio.Array.size
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3241512991031520554, guid: 4982ddb0f4411e14881b84a34672fc6d,
         type: 3}
@@ -124,6 +129,31 @@ PrefabInstance:
       propertyPath: respawnable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3241512991031520554, guid: 4982ddb0f4411e14881b84a34672fc6d,
+        type: 3}
+      propertyPath: spawnSpeedMultiplier
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241512991031520554, guid: 4982ddb0f4411e14881b84a34672fc6d,
+        type: 3}
+      propertyPath: spawnAudio.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 885109770be360147a40718f4a70e56d, type: 3}
+    - target: {fileID: 3241512991031520554, guid: 4982ddb0f4411e14881b84a34672fc6d,
+        type: 3}
+      propertyPath: spawnAudio.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4bbbfbc095aede049b96cb35386b907d, type: 3}
+    - target: {fileID: 3241512991031520554, guid: 4982ddb0f4411e14881b84a34672fc6d,
+        type: 3}
+      propertyPath: spawnAudio.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 20bdc2d7bc16452459689a95f32219df, type: 3}
+    - target: {fileID: 3241512991031520554, guid: 4982ddb0f4411e14881b84a34672fc6d,
+        type: 3}
+      propertyPath: spawnAudio.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: fc25c869158524a408af2b5db6eb090a, type: 3}
     - target: {fileID: 6516697309080965215, guid: 4982ddb0f4411e14881b84a34672fc6d,
         type: 3}
       propertyPath: m_LocalPosition.x

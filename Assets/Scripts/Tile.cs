@@ -7,6 +7,7 @@ public class Tile : MonoBehaviour {
     List<Vector3> originalScales;
     List<Vector3> originalPoss;
     List<Quaternion> originalAngles;
+    [SerializeField] AudioClip[] spawnAudio = null;
 
     // Start is called before the first frame update
     bool scaling = true;
@@ -19,6 +20,12 @@ public class Tile : MonoBehaviour {
     public bool animatedSpawn = false;
     public bool respawnable = true;
     void Start() {
+        if(!(spawnAudio is null) && spawnAudio.Length != 0) {
+            var audioSrc = GetComponent<AudioSource>();
+            audioSrc.clip = spawnAudio[Random.Range(0,spawnAudio.Length)];
+            audioSrc.PlayDelayed(Random.value*.5f);
+            Destroy(audioSrc, audioSrc.clip.length*2f);
+        }
         if(animatedSpawn) {
             objects = new List<Transform>(GetComponentsInChildren<Transform>());
             originalScales = new List<Vector3>();
@@ -38,7 +45,6 @@ public class Tile : MonoBehaviour {
             }
         }
     }
-
     // Update is called once per frame
     void Update() {
         if (!animatedSpawn || objects[0].localScale == originalScales[0]) {
