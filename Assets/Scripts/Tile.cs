@@ -11,6 +11,7 @@ public class Tile : MonoBehaviour {
 
     // Start is called before the first frame update
     bool scaling = true;
+    bool soundPlayed = false;
     public float scaleSpeed = .0001f;
     public float spawnSpeedMultiplier = 1f;
     public string tileType;
@@ -20,13 +21,7 @@ public class Tile : MonoBehaviour {
     public bool animatedSpawn = false;
     public bool respawnable = true;
     void Start() {
-        if (!(spawnAudio is null) && spawnAudio.Length != 0) {
-            var audioSrc = GetComponent<AudioSource>();
-            audioSrc.clip = spawnAudio[Random.Range(0, spawnAudio.Length)];
-            audioSrc.pitch += Random.Range(-.2f, .2f);
-            audioSrc.PlayDelayed(Random.value * .5f);
-            Destroy(audioSrc, audioSrc.clip.length * 2f);
-        }
+        playSound();
         if (animatedSpawn) {
             objects = new List<Transform>(GetComponentsInChildren<Transform>());
             originalScales = new List<Vector3>();
@@ -58,6 +53,16 @@ public class Tile : MonoBehaviour {
                 obj.transform.localRotation = Quaternion.Lerp(obj.transform.localRotation, originalAngles[i], scaleSpeed * spawnSpeedMultiplier * Time.deltaTime);
                 //obj.transform. originalAngles[i], scaleSpeed * Time.deltaTime);
             }
+        }
+    }
+    void playSound() {
+        if (!(spawnAudio is null) && spawnAudio.Length != 0) {
+            var audioSrc = GetComponent<AudioSource>();
+            audioSrc.clip = spawnAudio[Random.Range(0, spawnAudio.Length)];
+            audioSrc.pitch += Random.Range(-.2f, .2f);
+            audioSrc.PlayDelayed(Random.value * .5f);
+            Destroy(audioSrc, audioSrc.clip.length * 1.3f);
+            soundPlayed = true;
         }
     }
     public void beExplored(Vector2 agentOffset) {
