@@ -20,23 +20,23 @@ public class Tile : MonoBehaviour {
     public bool animatedSpawn = false;
     public bool respawnable = true;
     void Start() {
-        if(!(spawnAudio is null) && spawnAudio.Length != 0) {
+        if (!(spawnAudio is null) && spawnAudio.Length != 0) {
             var audioSrc = GetComponent<AudioSource>();
-            audioSrc.clip = spawnAudio[Random.Range(0,spawnAudio.Length)];
+            audioSrc.clip = spawnAudio[Random.Range(0, spawnAudio.Length)];
             audioSrc.pitch += Random.Range(-.2f, .2f);
-            audioSrc.PlayDelayed(Random.value*.5f);
-            Destroy(audioSrc, audioSrc.clip.length*2f);
+            audioSrc.PlayDelayed(Random.value * .5f);
+            Destroy(audioSrc, audioSrc.clip.length * 2f);
         }
-        if(animatedSpawn) {
+        if (animatedSpawn) {
             objects = new List<Transform>(GetComponentsInChildren<Transform>());
             originalScales = new List<Vector3>();
             originalPoss = new List<Vector3>();
             originalAngles = new List<Quaternion>();
+            if (objects.Count != 0 && rot90Rand) {
+                objects[0].transform.localEulerAngles += Vector3.up * (Random.Range(0, 3)) * 90;
+            }
             for (int i = 0; i < objects.Count; i++) {
                 Transform obj = objects[i];
-                if(rot90Rand) {
-                    obj.transform.localEulerAngles += Vector3.up * ((int)Random.Range(0, 3.99999f)) * 90;
-                }
                 originalScales.Add(obj.transform.localScale);
                 originalPoss.Add(obj.transform.localPosition);
                 originalAngles.Add(obj.transform.localRotation);
@@ -63,9 +63,8 @@ public class Tile : MonoBehaviour {
     public void beExplored(Vector2 agentOffset) {
         scaling = true;
         //print(agentOffset);
-        float mag = agentOffset.magnitude * agentOffset.magnitude - .15f;
-        if (mag != 0) {
-            scaleSpeed = 1.5f / (mag); //1.5f
-        }
+        float mag = agentOffset.magnitude - .27f;
+        mag *= mag * mag;
+        scaleSpeed = 1.5f / Mathf.Min(Mathf.Max(mag, .001f), 100); //1.5f
     }
 }

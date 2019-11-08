@@ -24,11 +24,13 @@ public class ExplorationMain : MonoBehaviour {
         } else {
             exploring = true;
         }
-        agent.explorer = this; //hacky
-        var curPos = pos;
-        if (curPos != oldPos || Time.frameCount < 5) {
-            scanPos(curPos);
-            oldPos = curPos;
+        if (pos == Vector2.Min(pos, gameTiles.size) && pos == Vector2.Max(pos, Vector2.zero)) {
+            agent.explorer = this; //hacky
+            var curPos = pos;
+            if (curPos != oldPos || Time.frameCount < 5) {
+                scanPos(curPos);
+                oldPos = curPos;
+            }
         }
         //getCurrentTile().GetComponent<MeshRenderer>().enabled = false;
     }

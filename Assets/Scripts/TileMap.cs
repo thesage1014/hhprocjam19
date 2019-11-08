@@ -91,7 +91,7 @@ public class TileMap : MonoBehaviour {
                 generateTile(x, y, agent);
             } else {
                 if (!(agent is null)) {
-                    returnTile.beExplored(returnTile.transform.position.xz() - agent.transform.position.xz());
+                    returnTile.beExplored(agent.transform.position.xz()-worldPos(x,y));
                 }
             }
             return returnTile;
@@ -160,7 +160,7 @@ public class TileMap : MonoBehaviour {
         }
     }
     void mapTile(Tile tile) {
-        Vector2Int pos = roundedPos(tile);
+        Vector2Int pos = roundedLocalPos(tile);
         if (!inBounds(pos.x, pos.y)) {
             Debug.LogError("out of bounds tile " + tile);
         } else {
@@ -172,8 +172,14 @@ public class TileMap : MonoBehaviour {
             }
         }
     }
-    Vector2Int roundedPos(Tile tile) {
+    Vector2Int roundedLocalPos(Tile tile) {
         return Vector3Int.RoundToInt(tile.transform.position - transform.position).xz();
+    }
+    Vector2 localPos(Tile tile) {
+        return tile.transform.position.xz() - transform.position.xz();
+    }
+    Vector2 worldPos(int x, int y) {
+        return new Vector2(x+.5f,y+.5f) + transform.position.xz();
     }
     public bool inBounds(int x, int y) {
         return !(x >= xCells || x < 0 || y >= yCells || y < 0);
