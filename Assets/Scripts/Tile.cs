@@ -17,7 +17,9 @@ public class Tile : MonoBehaviour {
     public string tileType;
     public float rotRandomness = 360;
     public float posRandomness = .3f;
-    public bool rot90Rand = true;
+    public bool rot90RandX = true;
+    public bool rot90RandY = true;
+    public bool rot90RandZ = true;
     public bool animatedSpawn = false;
     public bool respawnable = true;
     void Start() {
@@ -27,8 +29,13 @@ public class Tile : MonoBehaviour {
             originalScales = new List<Vector3>();
             originalPoss = new List<Vector3>();
             originalAngles = new List<Quaternion>();
-            if (objects.Count != 0 && rot90Rand) {
-                objects[0].transform.localEulerAngles += Vector3.up * (Random.Range(0, 3)) * 90;
+            if (objects.Count != 0) {
+                if (rot90RandX)
+                    objects[0].transform.localEulerAngles += Vector3.up * (Random.Range(0, 3)) * 90;
+                if (rot90RandY)
+                    objects[0].transform.localEulerAngles += Vector3.up * (Random.Range(0, 3)) * 90;
+                if (rot90RandZ)
+                    objects[0].transform.localEulerAngles += Vector3.up * (Random.Range(0, 3)) * 90;
             }
             for (int i = 0; i < objects.Count; i++) {
                 Transform obj = objects[i];
